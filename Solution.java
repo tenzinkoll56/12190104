@@ -1,43 +1,43 @@
 import java.util.*;
 
-public class BinarySearchTree<Key extends Comparable<Key>, Value> 
+public class Solution<Key extends Comparable<Key>, Value> 
 {
-    private Node root;      // root of BST
-    int size = 0;          // number of nodes in subtree
+    private Node root;      
+    int size = 0;          
 
     private class Node 
     {
-        private Key key;           // sorted by key
-        private Value val;         // associated data
-        private Node left, right;  // left and right subtrees
+        private Key key;           
+        private Value val;         
+        private Node left, right;  
        
-        public Node(Key key, Value val) //Node constructor
+        public Node(Key key, Value val) 
         {
             this.key = key;
             this.val = val;
         }
     }
 
-    // returns empty symbol table
+   
     public boolean isEmpty() 
     {
-        if(size() == 0)	//if the size is zero
+        if(size() == 0)	
         {
             return true;
         }
         return false;       
     }
 
-   //returns number of key-value pairs
+   
     public int size() 
     {
-        return size(root);       //Check size at node root
+        return size(root);      
     }
 
-    // return number of key-value pairs in BST rooted at x
+   
     private int size(Node x) 
     {
-        if(x == null)	//if the symbol table is empty
+        if(x == null)	
             return 0;
         else
             return size;
@@ -45,28 +45,28 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
     
     public boolean contains(Key key) 
     {
-    	//should not accept null key
+    	
 		if (key == null) 
         {
             throw new IllegalArgumentException("Key cannot be null"); 
         }
-        return get(key) != null;//when key is not null 
+        return get(key) != null;
     }
 
-    //returns value associated with key
+    
     public Value get(Key key) 
     {
-        if(key == null)	//should not accept null key
+        if(key == null)	
         {
 	        throw new IllegalArgumentException("Argument passed in key is null");
 	    }
-        Node current = root;	// temporary external variable for traversing
+        Node current = root;	
         while(key != current.key)
         {
-        	int compare = key.compareTo(current.key); //compare the key with each key of a node
+        	int compare = key.compareTo(current.key); 
         	if(compare < 0)
             {
-        		current = current.left; //if key is less than root key
+        		current = current.left; 
         	}
 	        else if(compare > 0)	//else
             {
@@ -78,25 +78,25 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
     
     public void put(Key key, Value val) 
     {
-        if (key == null) 	//if key is null
+        if (key == null) 	/if key is null
         {
             throw new IllegalArgumentException("Key cannot be null");
         }  
 
-        Node newest = new Node(key, val); // create new node
+        Node newest = new Node(key, val); 
         if(root == null)
         {
-            root = newest;	//when the root is null
+            root = newest;	
         }
         else
         {
-        	Node current = root;	//for traversing through the bst 
+        	Node current = root;	 
         	Node parent;
 
         	while(true)
         	{
-        		parent = current;	// parent node is current
-        		int comp = key.compareTo(current.key);//compare the key with each key in node
+        		parent = current;	
+        		int comp = key.compareTo(current.key);
 	            if(comp < 0)	// to put on the left
 	            {
 	                current = current.left;
@@ -129,31 +129,31 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
 
     public Key min() 
     {
-		if (isEmpty()) //For empty symbol table
+		if (isEmpty()) 
         {
             throw new NoSuchElementException("Empty symbol table");
         }
 
         Node current = root;
 
-        while (current.left != null) //Finding left most node 
+        while (current.left != null) 
         { 
             current = current.left; 
         }
         return current.key;         
     } 
 
-    // delete the minimum key in symbol table
+   
     public void deleteMin()
     {
-        if (isEmpty()) //For empty symbol table
+        if (isEmpty()) 
         {
             throw new NoSuchElementException("Empty symbol table");
         }
 
         Node current = root;
 
-        while (current.left != null) //Finding left most node 
+        while (current.left != null)  
         { 
             current = current.left; 
         }
@@ -163,7 +163,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
 
     public void delete(Key key)
     {
-        if (isEmpty()) //For empty symbol table
+        if (isEmpty()) 
         {
             throw new NoSuchElementException("Empty symbol table");
         }
@@ -174,9 +174,9 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
             int compare = key.compareTo(current.key); 
             if(compare < 0)
             {
-                current = current.left; //if key is less than root key
+                current = current.left; 
             }
-            else if(compare > 0)    //else
+            else if(compare > 0)    
             {
                 current = current.right;
             }
@@ -184,17 +184,17 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value>
         current.key = null;
         size--;
     }
-    //returns the largest key less than or equal to key
+    
     public Key floor(Key key) 
     {
-        if(key == null)	//cannot have null key argument
+        if(key == null)	
             throw new IllegalArgumentException("Argument passed in key is null");
 
         if(isEmpty())
         {
             throw new NoSuchElementException("Empty symbol table");
         }
-        Node current = floor(root, key);	// To traverse the bst starting from root
+        Node current = floor(root, key);	
         if(current == null)
         {
             return null;
